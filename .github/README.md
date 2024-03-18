@@ -1,3 +1,7 @@
+# What is it?
+
+This fork of Minestom is modified for own project fits. Main goal is to maintain it with maven.
+
 ![banner](banner_dark.png#gh-dark-mode-only)
 ![banner](banner_light.png#gh-light-mode-only)
 
