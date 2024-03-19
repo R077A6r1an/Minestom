@@ -1,3 +1,16 @@
+# What is this?
+
+This fork of Minestom is modified for own project fits. Main goal is to maintain it with maven support.
+
+The maven support is limited to compilation and packaging. All tests are disabled due to gradle/maven conflicts and as it is not required for me. If you require it, feel free to configure it, and submit a pull request. But if you want to compile it with the demo, run:
+
+```sh
+mvn package -Pbuild.demo
+```
+
+to build a fat executable standalone jar with the demo server.
+
+
 ![banner](banner_dark.png#gh-dark-mode-only)
 ![banner](banner_light.png#gh-light-mode-only)
 
@@ -17,11 +30,21 @@ However, we have a complete API which is designed to allow you to make anything 
 This is a developer API not meant to be used by end-users. Replacing Bukkit/Forge/Sponge with this **will not work** since we do not implement any of their APIs.
 
 # Table of contents
+- [What is this?](#what-is-this)
+- [Minestom](#minestom)
+- [Table of contents](#table-of-contents)
 - [Install](#install)
 - [Usage](#usage)
 - [Why Minestom?](#why-minestom)
-- [Advantages & Disadvantages](#advantages-and-disadvantages)
+- [Advantages and Disadvantages](#advantages-and-disadvantages)
+  - [Advantages](#advantages)
+  - [Disadvantages](#disadvantages)
 - [API](#api)
+  - [Instances](#instances)
+  - [Blocks](#blocks)
+  - [Entities](#entities)
+  - [Inventories](#inventories)
+  - [Commands](#commands)
 - [Credits](#credits)
 - [Contributing](#contributing)
 - [License](#license)
