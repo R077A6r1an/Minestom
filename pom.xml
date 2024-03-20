@@ -14,6 +14,8 @@
     <lib.version.hephaistos>2.6.1</lib.version.hephaistos>
     <lib.version.flare>2.0.1</lib.version.flare>
     <lib.version.tinylog>2.4.1</lib.version.tinylog>
+    <lib.version.jline>3.21.0</lib.version.jline>
+    <lib.version.logback>1.4.5</lib.version.logback>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <skipTests>true</skipTests>
@@ -26,6 +28,11 @@
     </repository>
   </repositories>
   <dependencies>
+  <dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>2.0.7</version>
+  </dependency>
     <dependency>
       <groupId>org.tinylog</groupId>
       <artifactId>tinylog-api</artifactId>
@@ -40,6 +47,26 @@
       <groupId>org.tinylog</groupId>
       <artifactId>slf4j-tinylog</artifactId>
       <version>${lib.version.tinylog}</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>${lib.version.logback}</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${lib.version.logback}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jline</groupId>
+      <artifactId>jline</artifactId>
+      <version>${lib.version.jline}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jline</groupId>
+      <artifactId>jline-terminal-jansi</artifactId>
+      <version>${lib.version.jline}</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
