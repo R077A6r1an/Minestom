@@ -124,17 +124,6 @@
       <version>1.20.4-rv4</version>
     </dependency>
     <dependency>
-      <groupId>com.github.Minestom</groupId>
-      <artifactId>DependencyGetter</artifactId>
-      <version>v1.0.1</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.jboss.shrinkwrap.resolver</groupId>
-          <artifactId>shrinkwrap-resolver-depchain</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
       <groupId>com.github.ben-manes.caffeine</groupId>
       <artifactId>caffeine</artifactId>
       <version>3.1.6</version>
