@@ -3,7 +3,7 @@ package net.minestom.server.resourcepack;
 import net.minestom.server.entity.Player;
 
 /**
- * Represents the result of {@link Player#setResourcePack(ResourcePack)} in
+ * Represents the result of resourcepack setting in
  * {@link net.minestom.server.event.player.PlayerResourcePackStatusEvent}.
  */
 public enum ResourcePackStatus {

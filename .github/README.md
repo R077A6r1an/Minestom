@@ -10,6 +10,8 @@ mvn package -Pbuild.demo
 
 to build a fat executable standalone jar with the demo server.
 
+For debugging the build, just append to the maven command `-Pbuild.debug`.
+
 
 ![banner](banner_dark.png#gh-dark-mode-only)
 ![banner](banner_light.png#gh-light-mode-only)

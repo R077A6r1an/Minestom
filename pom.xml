@@ -247,5 +247,27 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>build.debug</id>
+      <activation>
+        <property>
+          <name>build.debug</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+              <encoding>UTF-8</encoding>
+              <compilerArgument>-Xlint:unchecked</compilerArgument>
+              <showDeprecation>true</showDeprecation>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 </project>

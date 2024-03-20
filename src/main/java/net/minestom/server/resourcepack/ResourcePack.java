@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 /**
- * Represents a resource pack which can be sent with {@link Player#setResourcePack(ResourcePack)}.
+ * Represents a resource pack object used for ModCraft internal metadata packaging.
  */
 public class ResourcePack {
 
