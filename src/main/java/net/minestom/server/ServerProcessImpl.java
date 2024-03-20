@@ -9,6 +9,7 @@ import net.minestom.server.event.EventDispatcher;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.server.ServerTickMonitorEvent;
 import net.minestom.server.exception.ExceptionManager;
+import net.minestom.server.extensions.ExtensionManager;
 import net.minestom.server.gamedata.tags.TagManager;
 import net.minestom.server.instance.Chunk;
 import net.minestom.server.instance.Instance;
@@ -33,6 +34,7 @@ import net.minestom.server.utils.collection.MappedCollection;
 import net.minestom.server.world.DimensionTypeManager;
 import net.minestom.server.world.biomes.BiomeManager;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,6 +50,7 @@ final class ServerProcessImpl implements ServerProcess {
     private static final Boolean SHUTDOWN_ON_SIGNAL = PropertyUtils.getBoolean("minestom.shutdown-on-signal", true);
 
     private final ExceptionManager exception;
+    private final ExtensionManager extension;
     private final ConnectionManager connection;
     private final PacketListenerManager packetListener;
     private final PacketProcessor packetProcessor;
@@ -75,6 +78,7 @@ final class ServerProcessImpl implements ServerProcess {
 
     public ServerProcessImpl() throws IOException {
         this.exception = new ExceptionManager();
+        this.extension = ServerFlag.EXTENSIONS_ENABLED ? new ExtensionManager(this) : null;
         this.connection = new ConnectionManager();
         this.packetListener = new PacketListenerManager();
         this.packetProcessor = new PacketProcessor(packetListener);
@@ -164,6 +168,11 @@ final class ServerProcessImpl implements ServerProcess {
     }
 
     @Override
+    public @Nullable ExtensionManager extension() {
+        return extension;
+    }
+
+    @Override
     public @NotNull TagManager tag() {
         return tag;
     }
@@ -209,7 +218,16 @@ final class ServerProcessImpl implements ServerProcess {
             throw new IllegalStateException("Server already started");
         }
 
+        if (ServerFlag.EXTENSIONS_ENABLED) {
+            extension.start();
+            extension.gotoPreInit();
+        }
+
         LOGGER.info("Starting " + MinecraftServer.getBrandName() + " server.");
+
+        if (ServerFlag.EXTENSIONS_ENABLED) {
+            extension.gotoInit();
+        }
 
         // Init server
         try {
@@ -222,6 +240,10 @@ final class ServerProcessImpl implements ServerProcess {
         // Start server
         server.start();
 
+        if (ServerFlag.EXTENSIONS_ENABLED) {
+            extension.gotoPostInit();
+        }
+
         LOGGER.info(MinecraftServer.getBrandName() + " server started successfully.");
 
         // Stop the server on SIGINT
@@ -233,6 +255,10 @@ final class ServerProcessImpl implements ServerProcess {
         if (!stopped.compareAndSet(false, true))
             return;
         LOGGER.info("Stopping " + MinecraftServer.getBrandName() + " server.");
+        if (ServerFlag.EXTENSIONS_ENABLED) {
+            LOGGER.info("Unloading all extensions.");
+            extension.shutdown();
+        }
         scheduler.shutdown();
         connection.shutdown();
         server.stop();
