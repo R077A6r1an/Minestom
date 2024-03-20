@@ -75,6 +75,9 @@ dependencies {
     implementation(libs.minestomData)
     implementation(libs.dependencyGetter)
 
+    // Libraries required for the terminal
+    implementation(libs.bundles.terminal)
+
     // Performance/data structures
     implementation(libs.caffeine)
     api(libs.fastutil)
