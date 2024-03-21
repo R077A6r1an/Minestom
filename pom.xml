@@ -153,6 +153,12 @@
       <artifactId>jctools-core</artifactId>
       <version>4.0.1</version>
     </dependency>
+    <dependency>
+      <groupId>org.jboss.shrinkwrap.resolver</groupId>
+      <artifactId>shrinkwrap-resolver-depchain</artifactId>
+      <version>3.3.0</version>
+      <type>pom</type>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

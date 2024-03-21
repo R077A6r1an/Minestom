@@ -405,4 +405,6 @@ module net.minestom.server {
   requires jctools.core;
   requires data;
   requires it.unimi.dsi.fastutil;
+  requires shrinkwrap.resolver.api.maven;
+  requires shrinkwrap.api;
 }

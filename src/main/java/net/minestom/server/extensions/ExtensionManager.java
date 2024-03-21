@@ -565,7 +565,7 @@ public class ExtensionManager {
                 getter.addMavenResolver(repoList);
 
                 for (String artifact : externalDependencies.artifacts) {
-                    var resolved = getter.get(artifact, dependenciesFolder);
+                    var resolved = getter.get(artifact, dependenciesFolder.toPath());
                     addDependencyFile(resolved, discoveredExtension);
                     LOGGER.trace("Dependency of extension {}: {}", discoveredExtension.getName(), resolved);
                 }
