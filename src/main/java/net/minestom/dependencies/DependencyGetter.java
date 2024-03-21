@@ -43,7 +43,7 @@ public class DependencyGetter {
    * 
    * @return The resolved dependency
    */
-  public ResolvedDependency get(String id, Path targetFolder) {
+  public ResolvedDependency get(String id, Path targetFolder) throws UnresolvedDependencyException {
     for(DependencyResolver resolver : this.resolverList) {
       try{
         return resolver.resolve(id, targetFolder);

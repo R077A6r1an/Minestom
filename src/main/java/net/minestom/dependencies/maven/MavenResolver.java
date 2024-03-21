@@ -10,6 +10,7 @@ import org.jboss.shrinkwrap.resolver.api.maven.MavenResolvedArtifact;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Comparator;
 import java.io.IOException;
@@ -55,7 +56,7 @@ public class MavenResolver implements DependencyResolver {
    * @return The resolved dependency object
    */
   @Override
-  public ResolvedDependency resolve(String id, Path targetFolder) {
+  public ResolvedDependency resolve(String id, Path targetFolder) throws UnresolvedDependencyException {
     Path tmpFolder = targetFolder.resolve(".tmp");
     try{
       Files.createDirectories(tmpFolder);
@@ -100,15 +101,19 @@ public class MavenResolver implements DependencyResolver {
 
       var resolver = Maven.configureResolver().withMavenCentralRepo(hasMavenCentral).fromFile(settingsFilePath.toFile());
       var artifacts = resolver.resolve(id).withTransitivity().asResolvedArtifact();
-      var dependencies = artifacts.drop(1).map(this::convertToDependency);
-      var coords = artifacts[0].coordinate;
-      return ResolvedDependency(coords.groupId, coords.artifactId, coords.version, artifacts[0].asFile().toURI().toURL(), dependencies);
+      var dependencies = Arrays.stream(artifacts).skip(1).map(this::convertToDependency);
+      var coords = artifacts[0].getCoordinate();
+      return new ResolvedDependency(coords.getGroupId(), coords.getArtifactId(), coords.getVersion(), artifacts[0].asFile().toURI().toURL(), dependencies.toList());
     }catch(CoordinateParseException e) {
       throw new UnresolvedDependencyException("Failed to resolve " + id + " (not a Maven coordinate)", e);
     }catch(NoResolvedResultException e) {
       throw new UnresolvedDependencyException("Failed to resolve " + id, e);
+    }catch(Exception e) {
+      throw new UnresolvedDependencyException("Failed to resolve " + id, e);
     }finally{
-      Files.walk(tmpFolder).sorted(Comparator.reverseOrder()).forEach(this::delete);
+      try{
+        Files.walk(tmpFolder).sorted(Comparator.reverseOrder()).forEach(this::delete);
+      }catch(Exception e) {}
     }
   }
 
@@ -131,7 +136,12 @@ public class MavenResolver implements DependencyResolver {
    * @return The resolved dependency object
    */
   private ResolvedDependency convertToDependency(MavenResolvedArtifact artifact) {
-    return ResolvedDependency(artifact.coordinate.groupId, artifact.coordinate.artifactId, artifact.coordinate.version, artifact.asFile().toURI().toURL(), new ArrayList<ResolvedDependency>());
+    var coordinate = artifact.getCoordinate();
+    try{
+      return new ResolvedDependency(coordinate.getGroupId(), coordinate.getArtifactId(), coordinate.getVersion(), artifact.asFile().toURI().toURL(), new ArrayList<ResolvedDependency>());
+    }catch(Exception e) {
+      return null;
+    }
   }
 
   /**

@@ -49,7 +49,11 @@ public class MavenRepository {
     
     // Now check if URL is ok, and if not, change it
     String inUrl = url.endsWith("/") ? url : url + "/";
-    this.url = new URL(inUrl);
+    try{
+      this.url = new URL(inUrl);
+    }catch(Exception e) {
+      throw new NullPointerException("URL is not parseable");
+    }
   }
 
   /**
