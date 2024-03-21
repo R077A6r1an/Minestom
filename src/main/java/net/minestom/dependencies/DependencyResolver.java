@@ -4,7 +4,7 @@ import java.net.URL;
 import java.nio.file.Path;
 
 /**
- * Resolves & downloads a dependency via its id.
+ * Resolves and downloads a dependency via its id.
  * Ids formats are up to the resolver.
  */
 public interface DependencyResolver {
