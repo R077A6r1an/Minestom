@@ -25,6 +25,6 @@ jobs:
         env:
           REPO: self
           BRANCH: javadoc
-          FOLDER: build/docs/javadoc
+          FOLDER: target/site/apidocs
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CLEAR_GLOBS_FILE: ".github/javadoc-publish-clear"
