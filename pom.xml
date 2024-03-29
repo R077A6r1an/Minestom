@@ -16,8 +16,8 @@
     <lib.version.tinylog>2.4.1</lib.version.tinylog>
     <lib.version.jline>3.21.0</lib.version.jline>
     <lib.version.logback>1.4.5</lib.version.logback>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
     <skipTests>true</skipTests>
     <maven.test.skip>true</maven.test.skip>
   </properties>
