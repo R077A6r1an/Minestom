@@ -9,9 +9,7 @@
   <url>https://github.com/R077A6r1an/Minestom</url>
   <description>1.20.4 Lightweight Minecraft server</description>
   <properties>
-    <lib.version.adventure>4.15.0</lib.version.adventure>
-    <lib.version.kotlin>1.7.22</lib.version.kotlin>
-    <lib.version.hephaistos>2.6.1</lib.version.hephaistos>
+    <lib.version.adventure>4.17.0</lib.version.adventure>
     <lib.version.flare>2.0.1</lib.version.flare>
     <lib.version.tinylog>2.4.1</lib.version.tinylog>
     <lib.version.jline>3.21.0</lib.version.jline>
@@ -95,29 +93,9 @@
       <version>${lib.version.adventure}</version>
     </dependency>
     <dependency>
-      <groupId>com.github.MadMartian</groupId>
-      <artifactId>hydrazine-path-finding</artifactId>
-      <version>1.7.2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-reflect</artifactId>
-      <version>${lib.version.kotlin}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-stdlib-jdk8</artifactId>
-      <version>${lib.version.kotlin}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.github.jglrxavpok.hephaistos</groupId>
-      <artifactId>common</artifactId>
-      <version>${lib.version.hephaistos}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.github.jglrxavpok.hephaistos</groupId>
-      <artifactId>gson</artifactId>
-      <version>${lib.version.hephaistos}</version>
+      <groupId>net.kyori</groupId>
+      <artifactId>adventure-nbt</artifactId>
+      <version>${lib.version.adventure}</version>
     </dependency>
     <dependency>
       <groupId>net.minestom</groupId>
