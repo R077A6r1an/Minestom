@@ -1,0 +1,33 @@
+project:
+
+- groupId: com.github.R077A6r1an
+- artifactId: Minestom
+- version: 1.20.4
+- description: 1.20.4 Lightweight Minecraft server
+- url: github.com/R077A6r1an/Minestom
+
+dependencies:
+
+- org.slf4j:slf4j-api:2.0.7
+- org.jetbrains:annotations:23.0.0
+- net.kyori: > adventure-text-serializer-gson
+             > adventure-text-serializer-legacy
+             > adventure-text-serializer-plain
+             > adventure-text-logger-slf4j
+             > :4.15.0
+- com.github.MadMartian:hydrazine-path-finding:1.7.2
+- org.jetbrains.kotlin: > kotlin-reflect
+                        > kotlin-stdlib-jdk8
+                        > :1.7.22
+- io.github.jglrxavpok.hephaistos: > common
+                                   > gson
+                                   > :2.6.1
+- net.minestom:data:1.20.4-rv4
+- com.github.Minestom:DependencyGetter:v1.0.1
+- com.github.ben-manes.caffeine:caffeine:3.1.6
+- it.unimi.dsi:fastutil:8.5.12
+- space.vectrix.flare: > flare
+                       > flare-fastutil
+                       > :2.0.1
+- com.google.code.gson:gson:2.10.1
+- org.jctools:jctools-core:4.0.1

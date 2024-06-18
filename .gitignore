@@ -30,6 +30,9 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+# Maven
+**/target/
+
 ### Gradle template
 **/.gradle
 **/build/
@@ -60,3 +63,7 @@ gradle-app.setting
 # When saving the world in the demo we generate the world folder
 # Incase people are using IntelliJ to run the server, this will exclude the world folder.
 /demo/world
+
+# Custom development files
+/gitw
+
