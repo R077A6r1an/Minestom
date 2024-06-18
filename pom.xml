@@ -100,7 +100,7 @@
     <dependency>
       <groupId>net.minestom</groupId>
       <artifactId>data</artifactId>
-      <version>1.20.4-rv4</version>
+      <version>1.21</version>
     </dependency>
     <dependency>
       <groupId>com.github.ben-manes.caffeine</groupId>
