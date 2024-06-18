@@ -18,6 +18,7 @@ import net.minestom.server.network.packet.server.common.TagsPacket;
 import net.minestom.server.network.packet.server.configuration.FinishConfigurationPacket;
 import net.minestom.server.network.packet.server.configuration.ResetChatPacket;
 import net.minestom.server.network.packet.server.configuration.SelectKnownPacksPacket;
+import net.minestom.server.network.packet.server.configuration.UpdateEnabledFeaturesPacket;
 import net.minestom.server.network.packet.server.login.LoginSuccessPacket;
 import net.minestom.server.network.packet.server.play.StartConfigurationPacket;
 import net.minestom.server.network.player.PlayerConnection;
@@ -277,6 +278,8 @@ public final class ConnectionManager {
             EventDispatcher.call(event);
             if (!player.isOnline()) return; // Player was kicked during config.
 
+            player.sendPacket(new UpdateEnabledFeaturesPacket(event.getFeatureFlags())); // send player features that were enabled or disabled during async config event
+
             final Instance spawningInstance = event.getSpawningInstance();
             Check.notNull(spawningInstance, "You need to specify a spawning instance in the AsyncPlayerConfigurationEvent");
 
@@ -305,6 +308,9 @@ public final class ConnectionManager {
                 player.sendPacket(serverProcess.trimPattern().registryDataPacket(excludeVanilla));
                 player.sendPacket(serverProcess.bannerPattern().registryDataPacket(excludeVanilla));
                 player.sendPacket(serverProcess.wolfVariant().registryDataPacket(excludeVanilla));
+                player.sendPacket(serverProcess.enchantment().registryDataPacket(excludeVanilla));
+                player.sendPacket(serverProcess.paintingVariant().registryDataPacket(excludeVanilla));
+                player.sendPacket(serverProcess.jukeboxSong().registryDataPacket(excludeVanilla));
 
                 player.sendPacket(TagsPacket.DEFAULT_TAGS);
             }

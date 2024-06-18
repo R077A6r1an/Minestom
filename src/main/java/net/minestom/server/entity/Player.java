@@ -436,7 +436,7 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
 
         // Eating animation
         if (isUsingItem()) {
-            if (instance.getWorldAge() - startItemUseTime >= itemUseTime) {
+            if (instance.getWorldAge() - startItemUseTime >= itemUseTime && itemUseTime > 0) {
                 triggerStatus((byte) 9); // Mark item use as finished
                 ItemUpdateStateEvent itemUpdateStateEvent = callItemUpdateStateEvent(itemUseHand);
 
@@ -525,8 +525,8 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
         entityMeta.setOnFire(false);
         refreshHealth();
 
-        sendPacket(new RespawnPacket(DIMENSION_TYPE_REGISTRY.getId(getDimensionType().namespace()), instance.getDimensionName(),
-                0, gameMode, gameMode, false, levelFlat, deathLocation, portalCooldown, RespawnPacket.COPY_ALL));
+        sendPacket(new RespawnPacket(dimensionTypeId, instance.getDimensionName(), 0, gameMode, gameMode,
+                false, levelFlat, deathLocation, portalCooldown, RespawnPacket.COPY_ALL));
         refreshClientStateAfterRespawn();
 
         PlayerRespawnEvent respawnEvent = new PlayerRespawnEvent(this);
@@ -1041,8 +1041,8 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
 
     @Override
     public void setHealth(float health) {
-        super.setHealth(health);
         sendPacket(new UpdateHealthPacket(health, food, foodSaturation));
+        super.setHealth(health);
     }
 
     /**
@@ -1519,17 +1519,14 @@ public class Player extends LivingEntity implements CommandSender, Localizable, 
      *
      * @param packet the packet to send
      */
-    @ApiStatus.Experimental
     public void sendPacket(@NotNull SendablePacket packet) {
         this.playerConnection.sendPacket(packet);
     }
 
-    @ApiStatus.Experimental
     public void sendPackets(@NotNull SendablePacket... packets) {
         this.playerConnection.sendPackets(packets);
     }
 
-    @ApiStatus.Experimental
     public void sendPackets(@NotNull Collection<SendablePacket> packets) {
         this.playerConnection.sendPackets(packets);
     }
