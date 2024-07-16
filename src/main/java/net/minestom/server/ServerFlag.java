@@ -1,5 +1,6 @@
 package net.minestom.server;
 
+import net.minestom.server.utils.PropertyUtils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -7,7 +8,10 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Contains server settings/flags to be set with system properties.
  *
- * <p>Some flags (labeled at the bottom) are experimental. They may be removed without notice, and may have issues.</p>
+ * <p>
+ * Some flags (labeled at the bottom) are experimental. They may be removed
+ * without notice, and may have issues.
+ * </p>
  */
 public final class ServerFlag {
 
@@ -26,10 +30,12 @@ public final class ServerFlag {
     public static final int POOLED_BUFFER_SIZE = intProperty("minestom.pooled-buffer-size", 262_143);
     public static final int PLAYER_PACKET_PER_TICK = intProperty("minestom.packet-per-tick", 20);
     public static final int PLAYER_PACKET_QUEUE_SIZE = intProperty("minestom.packet-queue-size", 1000);
-    public static final int SEND_LIGHT_AFTER_BLOCK_PLACEMENT_DELAY = intProperty("minestom.send-light-after-block-placement-delay", 100);
+    public static final int SEND_LIGHT_AFTER_BLOCK_PLACEMENT_DELAY = intProperty(
+            "minestom.send-light-after-block-placement-delay", 100);
     public static final long KEEP_ALIVE_DELAY = longProperty("minestom.keep-alive-delay", 10_000);
     public static final long KEEP_ALIVE_KICK = longProperty("minestom.keep-alive-kick", 30_000);
-    public static final long LOGIN_PLUGIN_MESSAGE_TIMEOUT = longProperty("minestom.login-plugin-message-timeout", 5_000);
+    public static final long LOGIN_PLUGIN_MESSAGE_TIMEOUT = longProperty("minestom.login-plugin-message-timeout",
+            5_000);
 
     // Chunk update
     public static final float MIN_CHUNKS_PER_TICK = floatProperty("minestom.chunk-queue.min-per-tick", 0.01f);
@@ -43,28 +49,38 @@ public final class ServerFlag {
 
     // Tags
     public static final boolean TAG_HANDLER_CACHE_ENABLED = booleanProperty("minestom.tag-handler-cache", true);
-    public static final boolean SERIALIZE_EMPTY_COMPOUND = booleanProperty("minestom.serialization.serialize-empty-nbt-compound", false);
+    public static final boolean SERIALIZE_EMPTY_COMPOUND = booleanProperty(
+            "minestom.serialization.serialize-empty-nbt-compound", false);
 
     // Online Mode
-    public static final @NotNull String AUTH_URL = stringProperty("minestom.auth.url", "https://sessionserver.mojang.com/session/minecraft/hasJoined");
+    public static final @NotNull String AUTH_URL = stringProperty("minestom.auth.url",
+            "https://sessionserver.mojang.com/session/minecraft/hasJoined");
 
     // World
     public static final int WORLD_BORDER_SIZE = intProperty("minestom.world-border-size", 29999984);
 
     // Terminal
     public static final boolean TERMINAL_ENABLED = System.getProperty("minestom.terminal.disabled") == null;
-    public static final boolean TERMINAL_SUPPORT_HEX_COLOR = PropertyUtils.getBoolean("minestom.terminal.support-hex-color", true);
-    public static final boolean TERMINAL_SUPPORT_COLOR = PropertyUtils.getBoolean("minestom.terminal.support-color", true);
+    public static final boolean TERMINAL_SUPPORT_HEX_COLOR = PropertyUtils
+            .getBoolean("minestom.terminal.support-hex-color", true);
+    public static final boolean TERMINAL_SUPPORT_COLOR = PropertyUtils.getBoolean("minestom.terminal.support-color",
+            true);
 
     // Extensions todo use enabled flag
     public static final boolean EXTENSIONS_ENABLED = PropertyUtils.getBoolean("minestom.extension.enabled", true);
-    public static final @NotNull String EXTENSIONS_FOLDER = System.getProperty("minestom.extension.folder", "extensions");
-    public static final @Nullable String EXTENSIONS_DEV_CLASSES = System.getProperty("minestom.extension.indevfolder.classes");
-    public static final @Nullable String EXTENSIONS_DEV_RESOURCES = System.getProperty("minestom.extension.indevfolder.resources");
+    public static final @NotNull String EXTENSIONS_FOLDER = System.getProperty("minestom.extension.folder",
+            "extensions");
+    public static final @Nullable String EXTENSIONS_DEV_CLASSES = System
+            .getProperty("minestom.extension.indevfolder.classes");
+    public static final @Nullable String EXTENSIONS_DEV_RESOURCES = System
+            .getProperty("minestom.extension.indevfolder.resources");
 
     // Maps
     public static final @NotNull String MAP_RGB_MAPPING = stringProperty("minestom.map.rgbmapping", "lazy");
-    public static final @Nullable String MAP_RGB_REDUCTION = stringProperty("minestom.map.rgbreduction"); // Only used if rgb mapping is "approximate"
+    public static final @Nullable String MAP_RGB_REDUCTION = stringProperty("minestom.map.rgbreduction"); // Only used
+                                                                                                          // if rgb
+                                                                                                          // mapping is
+                                                                                                          // "approximate"
 
     // Experimental/Unstable
     public static final boolean REGISTRY_LATE_REGISTER = booleanProperty("minestom.registry.late-register");
@@ -84,7 +100,8 @@ public final class ServerFlag {
         boolean result = defaultValue;
         try {
             final String value = System.getProperty(name);
-            if (value != null) result = Boolean.parseBoolean(value);
+            if (value != null)
+                result = Boolean.parseBoolean(value);
         } catch (IllegalArgumentException | NullPointerException ignored) {
         }
         return result;
@@ -111,7 +128,8 @@ public final class ServerFlag {
         Float result = defaultValue;
         try {
             final String value = System.getProperty(name);
-            if (value != null) result = Float.parseFloat(value);
+            if (value != null)
+                result = Float.parseFloat(value);
         } catch (IllegalArgumentException | NullPointerException ignored) {
         }
         return result;
