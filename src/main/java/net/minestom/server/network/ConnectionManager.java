@@ -24,9 +24,9 @@ import net.minestom.server.network.packet.server.play.StartConfigurationPacket;
 import net.minestom.server.network.player.PlayerConnection;
 import net.minestom.server.network.player.PlayerSocketConnection;
 import net.minestom.server.network.plugin.LoginPluginMessageProcessor;
+import net.minestom.server.registry.StaticProtocolObject;
 import net.minestom.server.utils.StringUtils;
 import net.minestom.server.utils.async.AsyncUtils;
-import net.minestom.server.utils.debug.DebugUtils;
 import net.minestom.server.utils.validate.Check;
 import org.jctools.queues.MessagePassingQueue;
 import org.jctools.queues.MpscUnboundedArrayQueue;
@@ -37,6 +37,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Manages the connected clients.
@@ -205,7 +206,7 @@ public final class ConnectionManager {
         final Player player = playerProvider.createPlayer(uuid, username, connection);
         this.connectionPlayerMap.put(connection, player);
         var future = transitionLoginToConfig(player);
-        if (DebugUtils.INSIDE_TEST) future.join();
+        if (ServerFlag.INSIDE_TEST) future.join();
         return player;
     }
 
@@ -278,7 +279,7 @@ public final class ConnectionManager {
             EventDispatcher.call(event);
             if (!player.isOnline()) return; // Player was kicked during config.
 
-            player.sendPacket(new UpdateEnabledFeaturesPacket(event.getFeatureFlags())); // send player features that were enabled or disabled during async config event
+            player.sendPacket(new UpdateEnabledFeaturesPacket(event.getFeatureFlags().stream().map(StaticProtocolObject::namespace).collect(Collectors.toSet()))); // send player features that were enabled or disabled during async config event
 
             final Instance spawningInstance = event.getSpawningInstance();
             Check.notNull(spawningInstance, "You need to specify a spawning instance in the AsyncPlayerConfigurationEvent");
@@ -379,11 +380,16 @@ public final class ConnectionManager {
             playPlayers.add(player);
             keepAlivePlayers.add(player);
 
+            // This fixes a bug with Geyser. They do not reply to keep alive during config, meaning that
+            // `Player#didAnswerKeepAlive()` will always be false when entering the play state, so a new keep
+            // alive will never be sent and they will disconnect themselves or we will kick them for not replying.
+            player.refreshAnswerKeepAlive(true);
+
             // Spawn the player at Player#getRespawnPoint
             CompletableFuture<Void> spawnFuture = player.UNSAFE_init();
 
             // Required to get the exact moment the player spawns
-            if (DebugUtils.INSIDE_TEST) spawnFuture.join();
+            if (ServerFlag.INSIDE_TEST) spawnFuture.join();
         });
     }
 
