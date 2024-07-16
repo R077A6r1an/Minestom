@@ -1,0 +1,9 @@
+<settings>
+  <servers>
+    <server>
+      <id>github</id>
+      <username>R077A6r1an</username>
+      <password>${GITHUB_TOKEN}</password>
+    </server>
+  </servers>
+</settings>
