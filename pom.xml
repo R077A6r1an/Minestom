@@ -4,10 +4,10 @@
   <groupId>R077A6r1an</groupId>
   <artifactId>Minestom</artifactId>
   <packaging>jar</packaging>
-  <version>1.20.4</version>
+  <version>1.21</version>
   <name>Minestom</name>
   <url>https://github.com/R077A6r1an/Minestom</url>
-  <description>1.20.4 Lightweight Minecraft server</description>
+  <description>1.21 Lightweight Minecraft server</description>
   <properties>
     <lib.version.adventure>4.17.0</lib.version.adventure>
     <lib.version.flare>2.0.1</lib.version.flare>
