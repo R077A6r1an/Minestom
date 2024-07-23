@@ -15,6 +15,6 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
       - name: Publish package
-        run: mvn --batch-mode --settings settings.xml -Dmaven.resolver.transport=wagon deploy
+        run: mvn --batch-mode --settings settings.xml -Dmaven.wagon.http.pool=false -Dmaven.resolver.transport=wagon deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
