@@ -30,7 +30,7 @@
     <repository>
       <id>github</id>
       <name>GitHub Packages</name>
-      <url>https://maven.pkg.github.com/</url>
+      <url>https://maven.pkg.github.com/R077A6r1an/Minestom</url>
     </repository>
   </distributionManagement>
   <dependencies>
